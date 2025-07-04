@@ -72,6 +72,10 @@ app.delete('/api/transactions/:id', async (req, res) => {
             DELETE FROM transactions WHERE id = ${id} RETURNING *
         `
 
+        if(isNaN(parseInt(id))) [
+            return res.status(400).json({message: 'Invalid transaction id'})
+        ]
+
         if (transaction.length == 0 ) {
             return res.status(404).json({message: 'Transaction not found'})
         }
